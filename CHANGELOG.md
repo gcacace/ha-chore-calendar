@@ -2,6 +2,45 @@
 
 # Changelog
 
+## [0.11.0](https://github.com/gcacace/ha-chore-calendar/compare/v0.12.2...v0.11.0) (2026-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* create_item/update_item require the structured scheduled:/ interval: selectors; the legacy {time, active_days} and {days: N} shapes are rejected. Stored data is migrated automatically. The calendar entity now emits future occurrences of scheduled chores instead of only the next due marker.
+
+### Features
+
+* assignee badges, clearable until date, show-all toggle for the card ([#36](https://github.com/gcacace/ha-chore-calendar/issues/36)) ([88049a2](https://github.com/gcacace/ha-chore-calendar/commit/88049a2292e3179af220b4cbeda886967a1b2369))
+* **card:** render placeholder row when no chores are visible ([#21](https://github.com/gcacace/ha-chore-calendar/issues/21)) ([3004421](https://github.com/gcacace/ha-chore-calendar/commit/3004421ded00a4c4d1753922a43fa720d80ae8ee))
+* chore create/edit/delete from the lovelace card ([#30](https://github.com/gcacace/ha-chore-calendar/issues/30)) ([cfdb5f7](https://github.com/gcacace/ha-chore-calendar/commit/cfdb5f7e64446fc46ba7be2c82545ed6991b5c9b))
+* complete and skip dialogs on the card ([#37](https://github.com/gcacace/ha-chore-calendar/issues/37)) ([9e464fc](https://github.com/gcacace/ha-chore-calendar/commit/9e464fcb67c962c9ee3a00b6d37a3fd40f563634))
+* missed occurrences, completion-time skip resolution, dialog status block ([#44](https://github.com/gcacace/ha-chore-calendar/issues/44)) ([e1c438f](https://github.com/gcacace/ha-chore-calendar/commit/e1c438fb6223a4e98c5ef345c60a4c018497a267))
+* RRULE-based recurrence model ([#29](https://github.com/gcacace/ha-chore-calendar/issues/29)) ([f8e1929](https://github.com/gcacace/ha-chore-calendar/commit/f8e19291c3ae677d9f555895b033f253327248dc))
+* writable native todo items ([#32](https://github.com/gcacace/ha-chore-calendar/issues/32)) ([1120db6](https://github.com/gcacace/ha-chore-calendar/commit/1120db6f8aa3e2d7a81c6d54719641deb19a17e2))
+
+
+### Bug Fixes
+
+* follow-up default skip during pending advances by one occurrence ([#24](https://github.com/gcacace/ha-chore-calendar/issues/24)) ([555f27b](https://github.com/gcacace/ha-chore-calendar/commit/555f27b94989781e31d07da11a15b05bdb5b1475))
+* keep skipped_until as operative anchor through OVERDUE ([#20](https://github.com/gcacace/ha-chore-calendar/issues/20)) ([8e0d087](https://github.com/gcacace/ha-chore-calendar/commit/8e0d087b2485e793009f72ba520ecc5e78b2bd60))
+* leave due empty for one-shot chores and allow clearing it ([#47](https://github.com/gcacace/ha-chore-calendar/issues/47)) ([caadd9f](https://github.com/gcacace/ha-chore-calendar/commit/caadd9fb625919355a583c6b75747c233694f3b7))
+* migrate card editor period inputs from ha-textfield to ha-input ([#25](https://github.com/gcacace/ha-chore-calendar/issues/25)) ([0470ae2](https://github.com/gcacace/ha-chore-calendar/commit/0470ae2fc5421b39d645761225e29525264057f9))
+* read naive completed_at as local time ([#41](https://github.com/gcacace/ha-chore-calendar/issues/41)) ([f9d7e9f](https://github.com/gcacace/ha-chore-calendar/commit/f9d7e9fe64425ea2b89c528b7a43d77eeb1fe77a))
+* show-all toggle lifts all card-level filters ([#38](https://github.com/gcacace/ha-chore-calendar/issues/38)) ([b68b5fa](https://github.com/gcacace/ha-chore-calendar/commit/b68b5fa58b7d316a1414172ac0823b3e33c0072f))
+
+
+### Documentation
+
+* add README screenshots with demo data scripts ([#26](https://github.com/gcacace/ha-chore-calendar/issues/26)) ([cb8b79a](https://github.com/gcacace/ha-chore-calendar/commit/cb8b79aa520faf98c095629dd5712fb654512f13))
+* apply style guide and remove duplication ([#43](https://github.com/gcacace/ha-chore-calendar/issues/43)) ([44966a3](https://github.com/gcacace/ha-chore-calendar/commit/44966a303d362ee962c95fbb647657a4f585cf12))
+* updated dashboard image to use theme, added a chore-calendar only card image ([39a1bf2](https://github.com/gcacace/ha-chore-calendar/commit/39a1bf2b97352e5d35cbd78abbf449a3d270231f))
+
+
+### Miscellaneous Chores
+
+* release v0.11.0 ([c7a4783](https://github.com/gcacace/ha-chore-calendar/commit/c7a478317c3cdc4b27b54e0081d74c30057430b3))
+
 ## [0.12.2](https://github.com/tcarney/ha-chore-calendar/compare/v0.12.1...v0.12.2) (2026-09-13)
 
 
