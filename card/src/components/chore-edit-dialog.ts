@@ -426,6 +426,9 @@ export class ChoreEditDialog extends LitElement {
       label,
       value: String(this._data[key] ?? (key === "dtstart" ? this._todayStart() : "")),
       locale: this.hass.locale,
+      // A oneshot Due is optional, so it can be cleared back to unscheduled. A
+      // scheduled Start is required, so it is not clearable.
+      canClear: key === "due_datetime",
       onDate: (e) => this._onDatePart(key, e),
       onTime: (e) => this._onTimePart(key, e),
     });
@@ -467,7 +470,13 @@ export class ChoreEditDialog extends LitElement {
 
   private _onDatePart(key: "dtstart" | "due_datetime", e: CustomEvent<{ value?: string }>) {
     const date = e.detail.value;
-    if (!date) return;
+    // Clearing the date unsets the whole value, taking the time with it, which
+    // returns a oneshot to unscheduled. Only the Due row is clearable, so a
+    // scheduled Start never reaches this branch and keeps its required value.
+    if (!date) {
+      if (key === "due_datetime") this._data = { ...this._data, due_datetime: undefined };
+      return;
+    }
     this._data = { ...this._data, [key]: mergeDatePart(this._data[key], date) };
   }
 
@@ -512,10 +521,10 @@ export class ChoreEditDialog extends LitElement {
       }
       if (next.frequency === "monthly" && !next.monthly_mode) next.monthly_mode = "monthday";
     }
-    // Seed a due date when switching to oneshot so its date+time row has a value.
-    if (next.chore_type === "oneshot" && next.chore_type !== prev.chore_type && !next.due_datetime) {
-      next.due_datetime = this._todayStart();
-    }
+    // A oneshot Due is deliberately left empty. Unlike a scheduled Start it is
+    // optional, and an unscheduled oneshot is a supported state that stays
+    // pending rather than falling due, so seeding today here would make every
+    // chore created from this dialog dated whether or not that was wanted.
     this._data = next;
   }
 

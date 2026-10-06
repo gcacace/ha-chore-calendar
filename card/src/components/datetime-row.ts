@@ -58,15 +58,20 @@ export const PICKER_LOADER_SCHEMA = [
  *  The heading above the row carries the label and the date input gets none of
  *  its own, as in HA's calendar event editor. Its fields then sit slightly
  *  higher than the time input's HH/MM — the same offset the native dialog has
- *  (where AM/PM doesn't line up either). */
+ *  (where AM/PM doesn't line up either).
+ *
+ *  Pass ``canClear`` for a row whose value is optional. The date input then
+ *  offers HA's own clear affordance and emits an empty value, which the caller
+ *  turns back into an unset row. Rows backing a required value leave it off. */
 export function renderDateTimeRow(opts: {
   label: string;
   value: string;
   locale: unknown;
+  canClear?: boolean;
   onDate: (ev: CustomEvent<{ value?: string }>) => void;
   onTime: (ev: CustomEvent<{ value?: string }>) => void;
 }): TemplateResult {
-  const { label, value, locale, onDate, onTime } = opts;
+  const { label, value, locale, canClear = false, onDate, onTime } = opts;
   return html`
     <div class="datetime-label">${label}</div>
     <div class="datetime-row">
@@ -74,6 +79,7 @@ export function renderDateTimeRow(opts: {
         class="datetime-date"
         .locale=${locale}
         .value=${value.slice(0, 10)}
+        .canClear=${canClear}
         @value-changed=${onDate}
       ></ha-date-input>
       <ha-time-input
